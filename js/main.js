@@ -68,6 +68,7 @@ async function create() {
 	a.download = file.name;
 	a.href = url;
 	a.click();
+	window.location.reload();
 }
 input.onchange = function() {
 	file = input.files[0];
