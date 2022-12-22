@@ -59,16 +59,18 @@ function fit() {
 async function create() {
 	await fit();
 	var canvas = document.createElement("canvas");
+	var ctx = canvas.getContext("2d");
 	canvas.width=x;
 	canvas.height=y;
-	var ctx = canvas.getContext("2d");
 	ctx.drawImage(image, 0, 0, x, y);
-	var url = canvas.toDataURL();
-	var a =  document.createElement("a");
-	a.download = file.name;
-	a.href = url;
-	a.click();
-	window.location.reload();
+	canvas.toBlob((blob) => {
+		const url = URL.createObjectURL(blob);
+		var a =  document.createElement("a");
+		a.download = file.name;
+		a.href = url;
+		a.click();
+		window.location.reload();
+	},'image/jpeg', 0.5);
 }
 input.onchange = function() {
 	file = input.files[0];
